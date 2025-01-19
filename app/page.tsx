@@ -1,101 +1,303 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
+interface HeaderProps {
+  activeSection: string;
+  setActiveSection: (section: string) => void;
+}
+
+const Header = ({ activeSection, setActiveSection }: HeaderProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const menuItems = [
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Projects", href: "#projects" },
+    { name: "Blog", href: "#blog" },
+    { name: "Contact", href: "#contact" },
+  ];
+
+  const handleClick = (href: string) => {
+    setActiveSection(href.slice(1));
+    setIsOpen(false);
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <header className="fixed w-full z-10 bg-[#021842] bg-opacity-90 backdrop-blur-sm">
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <a
+          href="#home"
+          className="text-2xl font-bold"
+          onClick={() => handleClick("#home")}
+        >
+          CL
+        </a>
+        <nav className="hidden md:flex space-x-6">
+          {menuItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className={`hover:text-blue-300 transition-colors ${
+                activeSection === item.href.slice(1) ? "text-blue-300" : ""
+              }`}
+              onClick={() => handleClick(item.href)}
+            >
+              {item.name}
+            </a>
+          ))}
+        </nav>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
+            ></path>
+          </svg>
+        </button>
+      </div>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="md:hidden"
+        >
+          {menuItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.href}
+              className="block py-2 px-4 hover:bg-blue-900"
+              onClick={() => handleClick(item.href)}
+            >
+              {item.name}
+            </a>
+          ))}
+        </motion.div>
+      )}
+    </header>
+  );
+};
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+const Home = () => (
+  <section
+    id="home"
+    className="min-h-screen flex items-center justify-center px-4"
+  >
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      className="text-center"
+    >
+      <h1 className="text-4xl md:text-6xl font-bold mb-4 font-raleway">
+        Cyprian Lemtukei
+      </h1>
+      <h2 className="text-2xl md:text-3xl mb-6 font-raleway">
+        Developer & Business Person
+      </h2>
+      <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+        Bridging the gap between technology and business to create innovative
+        solutions.
+      </p>
+      <motion.a
+        href="#contact"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full inline-block"
+      >
+        Get in Touch
+      </motion.a>
+    </motion.div>
+  </section>
+);
+
+const About = () => (
+  <section
+    id="about"
+    className="min-h-screen flex items-center justify-center px-4 py-16"
+  >
+    <div className="max-w-4xl mx-auto">
+      <h2 className="text-3xl font-bold mb-8 text-center font-raleway">
+        About Me
+      </h2>
+      <div className="space-y-6">
+        <p>
+          As a developer and business person, I bring a unique perspective to
+          the world of technology. My genetic makeup includes:
+        </p>
+        <ul className="list-disc list-inside space-y-2 ml-4">
+          <li>50% Problem-solving DNA</li>
+          <li>25% Entrepreneurial spirit</li>
+          <li>15% Coffee-powered coding</li>
+          <li>10% Innovative thinking</li>
+        </ul>
+        <p>
+          With a strong foundation in both technical and business domains, I
+          strive to create solutions that not only work flawlessly but also
+          drive business growth and user satisfaction.
+        </p>
+        <p>
+          My journey in the tech world has been shaped by a passion for learning
+          and a commitment to excellence. I believe in the power of technology
+          to transform businesses and improve lives.
+        </p>
+      </div>
     </div>
+  </section>
+);
+
+const Projects = () => {
+  const projects = [
+    {
+      title: "E-commerce Platform",
+      description:
+        "A full-stack e-commerce solution with React, Node.js, and MongoDB.",
+      technologies: ["React", "Node.js", "MongoDB", "Express"],
+    },
+    {
+      title: "AI-powered Chatbot",
+      description:
+        "An intelligent chatbot using natural language processing for customer support.",
+      technologies: ["Python", "TensorFlow", "Flask", "React"],
+    },
+    {
+      title: "Blockchain Voting System",
+      description:
+        "A secure and transparent voting system built on blockchain technology.",
+      technologies: ["Solidity", "Ethereum", "Web3.js", "React"],
+    },
+  ];
+
+  return (
+    <section
+      id="projects"
+      className="min-h-screen flex items-center justify-center px-4 py-16"
+    >
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl font-bold mb-8 text-center font-raleway">
+          Projects
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-blue-900 bg-opacity-50 p-6 rounded-lg"
+            >
+              <h3 className="text-xl font-semibold mb-2 font-raleway">
+                {project.title}
+              </h3>
+              <p className="mb-4">{project.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech, techIndex) => (
+                  <span
+                    key={techIndex}
+                    className="bg-blue-700 px-2 py-1 rounded text-sm"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Blog = () => (
+  <section
+    id="blog"
+    className="min-h-screen flex items-center justify-center px-4 py-16"
+  >
+    <div className="max-w-4xl mx-auto">
+      <h2 className="text-3xl font-bold mb-8 text-center font-raleway">Blog</h2>
+      <p className="text-center">
+        Coming soon! I&apos;ll be sharing my thoughts on technology, business,
+        and innovation.
+      </p>
+    </div>
+  </section>
+);
+
+const Contact = () => (
+  <section
+    id="contact"
+    className="min-h-screen flex items-center justify-center px-4 py-16"
+  >
+    <div className="max-w-4xl mx-auto text-center">
+      <h2 className="text-3xl font-bold mb-8 font-raleway">Contact</h2>
+      <p className="mb-6">
+        My inbox is always open. Whether you need some help on a project or you
+        just want to say hi, send me a message and I will get back to you!
+      </p>
+      <motion.a
+        href="mailto:lemtukeicyprian@gmail.com"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full inline-block mb-4"
+      >
+        Shoot me a message!
+      </motion.a>
+      <div className="space-y-2">
+        <p>Email: lemtukeicyprian@gmail.com</p>
+        <p>Phone: +254 113 688376</p>
+      </div>
+    </div>
+  </section>
+);
+
+export default function Portfolio() {
+  const [activeSection, setActiveSection] = useState("home");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["home", "about", "projects", "blog", "contact"];
+      const currentSection = sections.find((section) => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom > 100;
+        }
+        return false;
+      });
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <>
+      <Header
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
+      />
+      <main>
+        <Home />
+        <About />
+        <Projects />
+        <Blog />
+        <Contact />
+      </main>
+    </>
   );
 }
