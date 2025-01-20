@@ -16,19 +16,19 @@ const About = () => (
         </p>
         <ul className="list-none space-y-4 ml-0">
           <li className="flex items-center">
-            <Code className="text-secondary w-6 h-6 mr-3" />
+            <Code className="text-secondarycolor w-6 h-6 mr-3" />
             <span>50% Problem-solving DNA</span>
           </li>
           <li className="flex items-center">
-            <Briefcase className="text-secondary w-6 h-6 mr-3" />
+            <Briefcase className="text-secondarycolor w-6 h-6 mr-3" />
             <span>25% Entrepreneurial spirit</span>
           </li>
           <li className="flex items-center">
-            <Coffee className="text-secondary w-6 h-6 mr-3" />
+            <Coffee className="text-secondarycolor w-6 h-6 mr-3" />
             <span>15% Coffee-powered coding</span>
           </li>
           <li className="flex items-center">
-            <Lightbulb className="text-secondary w-6 h-6 mr-3" />
+            <Lightbulb className="text-secondarycolor w-6 h-6 mr-3" />
             <span>10% Innovative thinking</span>
           </li>
         </ul>
