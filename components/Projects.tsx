@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import AnimationWrapper from "./animation-wrapper";
 
 const Projects = () => {
   const projects = [
@@ -27,37 +28,39 @@ const Projects = () => {
       id="projects"
       className="min-h-screen flex items-center justify-center px-4 py-16"
     >
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold mb-8 text-center font-raleway">
-          Projects
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-blue-900 bg-opacity-50 p-6 rounded-lg"
-            >
-              <h3 className="text-xl font-semibold mb-2 font-raleway">
-                {project.title}
-              </h3>
-              <p className="mb-4">{project.description}</p>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech, techIndex) => (
-                  <span
-                    key={techIndex}
-                    className="bg-blue-700 px-2 py-1 rounded text-sm"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+      <AnimationWrapper>
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-center font-raleway">
+            Projects
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-blue-900 bg-opacity-50 p-6 rounded-lg"
+              >
+                <h3 className="text-xl font-semibold mb-2 font-raleway">
+                  {project.title}
+                </h3>
+                <p className="mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {project.technologies.map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className="bg-blue-700 px-2 py-1 rounded text-sm"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
+      </AnimationWrapper>
     </section>
   );
 };
