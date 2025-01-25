@@ -35,13 +35,17 @@ const About = () => (
         <p>
           With a strong foundation in both technical and business domains, I
           strive to create solutions that not only work flawlessly but also
-          drive business growth and user satisfaction.
+          leverage the power of AI to drive business growth, enhance
+          decision-making, and deliver exceptional user experiences.
         </p>
         <p>
-          My journey in the tech world has been shaped by a passion for learning
-          and a commitment to excellence. I believe in the power of technology
-          to transform businesses and improve lives.
+          My journey in the tech world has been shaped by a passion for
+          learning, a commitment to excellence, and a belief in the
+          transformative potential of artificial intelligence. I see AI as a
+          pivotal tool in revolutionizing businesses, automating processes, and
+          creating innovative solutions that improve lives.
         </p>
+
         <div className="bg-blue-10 border-l-4 border-secondary p-4 rounded-lg">
           <div className="flex items-center">
             <CheckCircle className="text-secondary-light w-6 h-6 mr-3" />

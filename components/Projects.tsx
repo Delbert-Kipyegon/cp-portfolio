@@ -39,6 +39,14 @@ const Projects = () => {
       technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
       image: "/images/truprove.jpg",
     },
+    {
+      title: "Revolutionizing Trade in Africa using AI",
+      description:
+        "Leveraging USSD and AI to provide crucial goods information and enhance trade efficiency across Africa.",
+      link: "https://github.com/Delbert-Kipyegon/gpt-trade.git",
+      technologies: ["USSD", "OpenAI", "JavaScript"],
+      image: "/images/tradeai.jpg",
+    },
   ];
 
   return (
