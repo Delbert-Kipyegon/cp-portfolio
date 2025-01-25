@@ -4,7 +4,7 @@ import { Raleway } from "next/font/google";
 const raleway = Raleway({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Cyprian Lemtukei - Developer & Business Person",
+  title: "Cyprian Lemtukei - Professional Portfolio",
   description:
     "Portfolio of Cyprian Lemtukei, showcasing development and business expertise.",
 };
